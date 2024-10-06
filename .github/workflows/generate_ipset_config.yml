@@ -1,0 +1,24 @@
+name: Generate IPSet Config
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate-config:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Generate IPSet Config
+      run: |
+        chmod +x generate.sh
+        ./generate.sh
+
+    - name: Upload IPSet Config
+      uses: actions/upload-artifact@v2
+      with:
+        name: ipset_szu
+        path: ipset_szu.txt
